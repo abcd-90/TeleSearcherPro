@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 90" width="440" height="90">
+  <defs>
+    <!-- Premium Gradient Definitions -->
+    <linearGradient id="brandGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F2FE"/>
+      <stop offset="50%" stop-color="#00A6FB"/>
+      <stop offset="100%" stop-color="#7928CA"/>
+    </linearGradient>
+    
+    <linearGradient id="iconSurface" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2640"/>
+      <stop offset="100%" stop-color="#0F1424"/>
+    </linearGradient>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#F3F4F6"/>
+      <stop offset="100%" stop-color="#00F2FE"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Logo Icon Container -->
+  <g transform="translate(10, 10)">
+    <!-- Ambient Backdrop Glow -->
+    <rect x="0" y="0" width="70" height="70" rx="22" fill="url(#brandGlow)" opacity="0.35" filter="url(#softGlow)"/>
+    <!-- Outer Card Shield -->
+    <rect x="0" y="0" width="70" height="70" rx="22" fill="url(#iconSurface)" stroke="rgba(0, 242, 254, 0.4)" stroke-width="1.5"/>
+    
+    <!-- Telegram Paper Plane + Search Prism Symbol -->
+    <circle cx="35" cy="35" r="24" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+    <path d="M 23 35 L 47 23 L 41 49 L 34 42 L 31 46 L 31 40 Z" fill="url(#brandGlow)"/>
+    <path d="M 34 42 L 44 28 L 29 37 Z" fill="#FFFFFF" opacity="0.85"/>
+  </g>
+
+  <!-- Main Brand Title -->
+  <text x="96" y="54" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-weight="800" font-size="36" fill="url(#textGrad)" letter-spacing="-0.8">
+    Tele<tspan fill="#00F2FE">Search</tspan><tspan font-size="14" font-weight="700" fill="#7928CA" dx="6" dy="-18">PRO</tspan>
+  </text>
+</svg>

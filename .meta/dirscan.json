@@ -1,0 +1,259 @@
+{
+  "gitExposure": {
+    "exposed": false,
+    "headUrl": "https://telesearcher.vercel.app/.git/HEAD",
+    "headStatus": 403,
+    "configUrl": "https://telesearcher.vercel.app/.git/config",
+    "configStatus": 403
+  },
+  "pathChecks": [
+    {
+      "path": "/.env",
+      "category": "sensitive-file",
+      "note": "Environment variables (often contains secrets/credentials)",
+      "url": "https://telesearcher.vercel.app/.env",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/.env.local",
+      "category": "sensitive-file",
+      "note": "Local environment overrides",
+      "url": "https://telesearcher.vercel.app/.env.local",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/.env.production",
+      "category": "sensitive-file",
+      "note": "Production environment file",
+      "url": "https://telesearcher.vercel.app/.env.production",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/config.php",
+      "category": "sensitive-file",
+      "note": "PHP config, often contains DB credentials",
+      "url": "https://telesearcher.vercel.app/config.php",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/wp-config.php",
+      "category": "sensitive-file",
+      "note": "WordPress config (DB credentials)",
+      "url": "https://telesearcher.vercel.app/wp-config.php",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/settings.py",
+      "category": "sensitive-file",
+      "note": "Django settings (often contains secrets)",
+      "url": "https://telesearcher.vercel.app/settings.py",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/web.config",
+      "category": "sensitive-file",
+      "note": "IIS/.NET config file",
+      "url": "https://telesearcher.vercel.app/web.config",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/.htaccess",
+      "category": "sensitive-file",
+      "note": "Apache config; usually should not be servable",
+      "url": "https://telesearcher.vercel.app/.htaccess",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/.htpasswd",
+      "category": "sensitive-file",
+      "note": "Apache password file",
+      "url": "https://telesearcher.vercel.app/.htpasswd",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/docker-compose.yml",
+      "category": "sensitive-file",
+      "note": "Docker compose file, may reveal infra layout",
+      "url": "https://telesearcher.vercel.app/docker-compose.yml",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/composer.json",
+      "category": "sensitive-file",
+      "note": "PHP dependency manifest",
+      "url": "https://telesearcher.vercel.app/composer.json",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/package.json",
+      "category": "sensitive-file",
+      "note": "Node dependency manifest (often fine to expose)",
+      "url": "https://telesearcher.vercel.app/package.json",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/backup.zip",
+      "category": "backup-file",
+      "note": "Common backup archive name",
+      "url": "https://telesearcher.vercel.app/backup.zip",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/backup.sql",
+      "category": "backup-file",
+      "note": "Database dump",
+      "url": "https://telesearcher.vercel.app/backup.sql",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/site-backup.zip",
+      "category": "backup-file",
+      "note": "Common backup archive name",
+      "url": "https://telesearcher.vercel.app/site-backup.zip",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/index.php.bak",
+      "category": "backup-file",
+      "note": "Editor/deploy backup of source file",
+      "url": "https://telesearcher.vercel.app/index.php.bak",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/index.html.bak",
+      "category": "backup-file",
+      "note": "Editor/deploy backup of source file",
+      "url": "https://telesearcher.vercel.app/index.html.bak",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/database.sql",
+      "category": "backup-file",
+      "note": "Database dump",
+      "url": "https://telesearcher.vercel.app/database.sql",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/dump.sql",
+      "category": "backup-file",
+      "note": "Database dump",
+      "url": "https://telesearcher.vercel.app/dump.sql",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/admin",
+      "category": "common-directory",
+      "note": "Admin panel",
+      "url": "https://telesearcher.vercel.app/admin",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/wp-admin",
+      "category": "common-directory",
+      "note": "WordPress admin",
+      "url": "https://telesearcher.vercel.app/wp-admin",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/wp-login.php",
+      "category": "common-directory",
+      "note": "WordPress login",
+      "url": "https://telesearcher.vercel.app/wp-login.php",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/administrator",
+      "category": "common-directory",
+      "note": "Joomla admin",
+      "url": "https://telesearcher.vercel.app/administrator",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/phpmyadmin",
+      "category": "common-directory",
+      "note": "phpMyAdmin panel",
+      "url": "https://telesearcher.vercel.app/phpmyadmin",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/api",
+      "category": "common-directory",
+      "note": "API root",
+      "url": "https://telesearcher.vercel.app/api",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/api/v1",
+      "category": "common-directory",
+      "note": "API root",
+      "url": "https://telesearcher.vercel.app/api/v1",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/graphql",
+      "category": "common-directory",
+      "note": "GraphQL endpoint",
+      "url": "https://telesearcher.vercel.app/graphql",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/logs",
+      "category": "common-directory",
+      "note": "Log directory",
+      "url": "https://telesearcher.vercel.app/logs",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/backup",
+      "category": "common-directory",
+      "note": "Backup directory",
+      "url": "https://telesearcher.vercel.app/backup",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/uploads",
+      "category": "common-directory",
+      "note": "Upload directory",
+      "url": "https://telesearcher.vercel.app/uploads",
+      "status": 403,
+      "accessible": false
+    },
+    {
+      "path": "/.well-known/security.txt",
+      "category": "common-directory",
+      "note": "Security contact info (good to have)",
+      "url": "https://telesearcher.vercel.app/.well-known/security.txt",
+      "status": 403,
+      "accessible": false
+    }
+  ]
+}

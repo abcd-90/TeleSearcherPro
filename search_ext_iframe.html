@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeleSearch Engine Search Frame</title>
+  <!-- Force external links to open in a new tab to avoid iframe blocking -->
+  <base target="_blank">
+  <link rel="stylesheet" href="css/telesearch.css">
+  <script src="js/security.js" defer></script>
+  
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+    body::before, body::after { display: none !important; }
+    body {
+      padding: 10px 0 30px 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      width: 100% !important;
+      font-family: var(--font-sans) !important;
+    }
+
+    /* Outer Wrapper */
+    .search-container-main {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Custom Primary Search Bar Wrapper */
+    .ts-search-input-group {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 8px 12px 8px 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      margin-bottom: 24px;
+      transition: all var(--transition-normal);
+    }
+
+    .ts-search-input-group:focus-within {
+      border-color: var(--primary-blue);
+      box-shadow: var(--shadow-glow), var(--shadow-hover);
+    }
+
+    .ts-search-icon {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ts-main-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .ts-main-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .ts-category-dropdown {
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .ts-category-dropdown option {
+      background: #FFFFFF;
+      color: var(--text-primary);
+    }
+
+    .ts-search-btn-primary {
+      background: var(--primary-navy);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-navy);
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ts-search-btn-primary:hover {
+      background: var(--primary-navy-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(11, 25, 44, 0.3);
+    }
+
+    /* Google CSE Search Component Styling Overrides */
+    .gcse-search, .gsc-control-cse, .gsc-control-wrapper-cse,
+    .gsc-results-wrapper-visible, .gsc-results-wrapper-overlay, .gsc-wrapper {
+      width: 100% !important;
+      max-width: 1000px !important;
+      margin: 0 auto !important;
+      background-color: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+    }
+
+    .gsc-search-box-tools, .gsc-search-box {
+      margin: 0 auto 24px auto !important;
+      max-width: 900px !important;
+      width: 100% !important;
+    }
+
+    /* Light Input Box for Google CSE */
+    .gsc-input-box {
+      border-radius: var(--radius-md) !important;
+      background: #FFFFFF !important;
+      border: 1px solid var(--border-subtle) !important;
+      padding: 8px 16px !important;
+      box-shadow: var(--shadow-card) !important;
+      transition: all var(--transition-normal) !important;
+    }
+
+    .gsc-input-box:focus-within, .gsc-input-box-focus {
+      border-color: var(--primary-blue) !important;
+      box-shadow: var(--shadow-glow) !important;
+    }
+
+    input.gsc-input, .gsib_a input {
+      color: var(--text-primary) !important;
+      background: transparent !important;
+      font-size: 1.05rem !important;
+      font-family: var(--font-sans) !important;
+      font-weight: 500 !important;
+    }
+
+    input.gsc-input::placeholder { color: var(--text-muted) !important; }
+
+    /* Search Action Button */
+    .gsc-search-button-v2, button.gsc-search-button-v2 {
+      background: var(--primary-navy) !important;
+      border-radius: var(--radius-sm) !important;
+      padding: 12px 24px !important;
+      border: none !important;
+      box-shadow: var(--shadow-navy) !important;
+      cursor: pointer !important;
+      transition: all var(--transition-fast) !important;
+    }
+
+    .gsc-search-button-v2:hover {
+      background: var(--primary-navy-hover) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 8px 25px rgba(11, 25, 44, 0.3) !important;
+    }
+
+    .gsc-search-button-v2 svg { fill: #ffffff !important; width: 18px !important; height: 18px !important; }
+
+    /* Category & TeleDrive File Filter Tab Bar */
+    .category-tabs-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .tabs-group-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-tab.active {
+      background: var(--primary-navy);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: var(--shadow-navy);
+      font-weight: 700;
+    }
+
+    .cat-tab:hover:not(.active) {
+      color: var(--text-primary);
+      background: var(--bg-slate-light);
+    }
+
+    .filter-btn-pill {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Discovery Grid */
+    .discovery-grid-wrapper {
+      width: 100%;
+      margin-top: 10px;
+      transition: opacity 0.3s ease;
+    }
+
+    .discovery-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .discovery-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .discovery-subtitle-text {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .view-trending-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition-fast);
+    }
+
+    .view-trending-link:hover {
+      text-decoration: underline;
+      transform: translateX(2px);
+    }
+
+    .discovery-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .disc-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .disc-card-rank {
+      position: absolute;
+      top: 16px; left: 16px;
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: var(--primary-navy);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .disc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--gradient-brand);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+
+    .disc-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .disc-card:hover::before { opacity: 1; }
+
+    .disc-card-head { display: flex; align-items: flex-start; gap: 14px; padding-left: 28px; }
+    .disc-avatar {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--gradient-brand);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 1.3rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    }
+    .disc-info { display: flex; flex-direction: column; gap: 4px; }
+    .disc-name { font-weight: 700; font-size: 1.05rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+    .verified-icon { color: var(--primary-blue); display: inline-flex; }
+    .disc-meta { font-size: 0.82rem; color: var(--text-muted); }
+    .disc-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; }
+    .disc-card-action { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border-subtle); }
+    .disc-tag { font-size: 0.78rem; font-weight: 600; color: var(--primary-blue); background: var(--bg-blue-light); padding: 3px 10px; border-radius: var(--radius-xs); }
+    .disc-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-blue); font-size: 0.86rem; font-weight: 700; text-decoration: none; }
+    .disc-btn:hover { text-decoration: underline; transform: translateX(2px); }
+
+    /* Search Result Cards */
+    .gsc-webResult.gsc-result, .gsc-result {
+      background: #FFFFFF !important;
+      border: 1px solid var(--border-subtle) !important;
+      border-left: 4px solid var(--primary-blue) !important;
+      border-radius: var(--radius-md) !important;
+      padding: 24px !important;
+      margin-bottom: 20px !important;
+      box-shadow: var(--shadow-card) !important;
+      transition: all var(--transition-normal) !important;
+      position: relative !important;
+    }
+
+    .gsc-webResult.gsc-result:hover {
+      border-color: var(--border-highlight) !important;
+      transform: translateY(-3px) !important;
+      box-shadow: var(--shadow-hover) !important;
+    }
+
+    .gs-title, .gs-title * {
+      color: var(--primary-blue) !important;
+      text-decoration: none !important;
+      font-size: 1.2rem !important;
+      font-weight: 700 !important;
+      line-height: 1.4 !important;
+    }
+
+    .gs-title:hover, .gs-title *:hover { color: var(--primary-navy) !important; text-decoration: underline !important; }
+
+    .gs-snippet b, .gs-snippet strong, .gs-title b, .gs-title strong {
+      color: var(--primary-blue) !important;
+      background: var(--bg-blue-light) !important;
+      padding: 2px 6px !important;
+      border-radius: 4px !important;
+    }
+
+    .gs-snippet, .gs-snippet * { color: var(--text-secondary) !important; font-size: 0.96rem !important; line-height: 1.6 !important; margin-top: 8px !important; }
+
+    .gs-visibleUrl, .gs-visibleUrl-long {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      color: var(--accent-emerald) !important;
+      font-size: 0.84rem !important;
+      font-weight: 600 !important;
+      background: #ECFDF5 !important;
+      border: 1px solid #A7F3D0 !important;
+      padding: 3px 10px !important;
+      border-radius: var(--radius-xs) !important;
+      margin-bottom: 8px !important;
+    }
+
+    /* Dual Action Bar inside Search Cards */
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+
+    .ts-card-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: var(--primary-navy);
+      color: #ffffff;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-navy);
+    }
+
+    .ts-card-action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11, 25, 44, 0.3); }
+
+    .ts-copy-btn, .ts-bookmark-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .ts-copy-btn:hover, .ts-bookmark-btn:hover {
+      background: var(--bg-slate-light);
+      color: var(--text-primary);
+    }
+
+    .ts-bookmark-btn.saved {
+      color: var(--accent-amber);
+      border-color: #FDE68A;
+      background: #FEF3C7;
+    }
+
+    /* TeleDrive File Size Badge */
+    .file-size-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      background: var(--bg-blue-light);
+      border: 1px solid var(--border-highlight);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Pagination Buttons */
+    .gsc-cursor-box { display: flex !important; justify-content: center !important; gap: 8px !important; margin: 36px 0 20px 0 !important; }
+    .gsc-cursor-page {
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      width: 42px !important; height: 42px !important;
+      border-radius: var(--radius-sm) !important;
+      background: #FFFFFF !important;
+      border: 1px solid var(--border-subtle) !important;
+      color: var(--text-secondary) !important;
+      font-weight: 700 !important;
+      transition: all var(--transition-fast) !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    .gsc-cursor-page:hover { background: var(--bg-slate-light) !important; color: var(--text-primary) !important; transform: translateY(-2px) !important; }
+    .gsc-cursor-current-page { background: var(--primary-navy) !important; color: #ffffff !important; border-color: var(--primary-navy) !important; box-shadow: var(--shadow-navy) !important; }
+
+    /* Autocomplete */
+    table.gssb_c, .gssb_c, .gssb_m, .gsc-completion-container {
+      background: #FFFFFF !important;
+      border: 1px solid var(--border-subtle) !important;
+      border-radius: var(--radius-md) !important;
+      box-shadow: var(--shadow-hover) !important;
+    }
+    tr.gssb_a, td.gssb_a, .gssb_a, .gssb_c * { background: #FFFFFF !important; color: var(--text-primary) !important; }
+    tr.gssb_a:hover, tr.gssb_a:hover td, .gsc-completion-selected { background: var(--bg-blue-light) !important; color: var(--primary-blue) !important; }
+
+    /* Hide Info Header */
+    .gsc-result-info-container, .gsc-result-info, .gsc-orderby-container { display: none !important; }
+
+    /* Responsive Adapters for Search Frame */
+    @media (max-width: 768px) {
+      .ts-search-input-group {
+        padding: 6px 8px 6px 14px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .ts-main-input {
+        font-size: 0.96rem;
+      }
+      .ts-category-dropdown {
+        font-size: 0.78rem;
+        padding: 6px 10px;
+        margin-right: 0;
+      }
+      .ts-search-btn-primary {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      .category-tabs-bar {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+      }
+      .cat-tab {
+        flex-shrink: 0;
+        font-size: 0.78rem;
+        padding: 6px 14px;
+      }
+      .discovery-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .disc-card {
+        padding: 18px;
+      }
+      .disc-card-action {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .card-actions-row {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .ts-card-action-btn, .ts-copy-btn, .ts-bookmark-btn {
+        flex: 1;
+        min-width: 110px;
+        text-align: center;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="search-container-main">
+
+    <!-- Custom Unified Search Input Group -->
+    <div class="ts-search-input-group">
+      <span class="ts-search-icon">🔍</span>
+      <input type="text" id="tsInlineSearchInput" class="ts-main-input" placeholder="Search channels, groups, bots, files, or topics..." onkeyup="handleInlineSearchKey(event)">
+      <select id="tsCatSelect" class="ts-category-dropdown" onchange="handleCatSelectChange(this.value)">
+        <option value="all">All ▾</option>
+        <option value="channels">Channels</option>
+        <option value="groups">Groups</option>
+        <option value="bots">Bots</option>
+        <option value="teledrive">Files (.zip, .apk, .pdf)</option>
+        <option value="vault">Private Vault</option>
+      </select>
+      <button class="ts-search-btn-primary" onclick="triggerInlineSearch()">Search</button>
+    </div>
+    
+    <!-- Category & TeleDrive File Filter Tabs Bar -->
+    <div class="category-tabs-bar">
+      <div class="tabs-group-left">
+        <div class="cat-tab active" data-cat="all" onclick="filterCategory('all', this)">⚡ All Results</div>
+        <div class="cat-tab" data-cat="channels" onclick="filterCategory('channels', this)">📢 Channels</div>
+        <div class="cat-tab" data-cat="groups" onclick="filterCategory('groups', this)">👥 Groups</div>
+        <div class="cat-tab" data-cat="bots" onclick="filterCategory('bots', this)">🤖 Bots</div>
+        <div class="cat-tab" data-cat="files" onclick="filterCategory('teledrive', this)">📁 Files</div>
+        <div class="cat-tab" data-cat="teledrive" onclick="filterCategory('teledrive', this)">📦 TeleDrive</div>
+      </div>
+      <button class="filter-btn-pill" onclick="filterCategory('all', document.querySelector('.cat-tab.active'))">
+        ⚙️ Filters
+      </button>
+    </div>
+
+    <!-- Google Custom Search Engine Widget -->
+    <script async src="https://cse.google.com/cse.js?cx=006249643689853114236:meozern20ky"></script>
+    <div class="gcse-search"></div>
+
+    <!-- Curated Initial Discovery Grid (Trending Hubs & Vaults) -->
+    <div id="discoveryGrid" class="discovery-grid-wrapper">
+      <div class="discovery-title-bar">
+        <div>
+          <div class="discovery-title">🔥 Trending Hubs & Vaults</div>
+          <div class="discovery-subtitle-text">Top performing communities this week</div>
+        </div>
+        <a href="#" onclick="filterCategory('channels', document.querySelectorAll('.cat-tab')[1]); return false;" class="view-trending-link">View all trending ↗</a>
+      </div>
+
+      <div class="discovery-cards-grid">
+        
+        <div class="disc-card">
+          <div class="disc-card-rank">1</div>
+          <div class="disc-card-head">
+            <div class="disc-avatar" style="background: linear-gradient(135deg, #1D4ED8, #2563EB)">Z</div>
+            <div class="disc-info">
+              <div class="disc-name">
+                Zero To Mastery
+                <span class="verified-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </span>
+              </div>
+              <span class="disc-meta">240K Members • <span class="file-size-badge">💾 4.2 GB Course Pack</span></span>
+            </div>
+          </div>
+          <p class="disc-desc">Learn Ethical Hacking, Web Dev, Python, Cybersecurity, and Data Science with free resources.</p>
+          <div class="disc-card-action">
+            <span class="disc-tag">Featured Tech</span>
+            <a href="https://t.me/s/zerotomastery" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
+          </div>
+        </div>
+
+        <div class="disc-card">
+          <div class="disc-card-rank">2</div>
+          <div class="disc-card-head">
+            <div class="disc-avatar" style="background: linear-gradient(135deg, #059669, #10B981)">C</div>
+            <div class="disc-info">
+              <div class="disc-name">
+                Cyber Yodha
+                <span class="verified-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </span>
+              </div>
+              <span class="disc-meta">185K Members • <span class="file-size-badge" style="background:#ECFDF5; color:#059669; border-color:#A7F3D0">💾 280 MB Toolset</span></span>
+            </div>
+          </div>
+          <p class="disc-desc">Daily security updates, penetration testing tutorials, CTF challenges, and ethical hacking guides.</p>
+          <div class="disc-card-action">
+            <span class="disc-tag" style="background:#ECFDF5; color:#059669">CyberSecurity</span>
+            <a href="https://t.me/s/cyberyodha" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
+          </div>
+        </div>
+
+        <div class="disc-card">
+          <div class="disc-card-rank">3</div>
+          <div class="disc-card-head">
+            <div class="disc-avatar" style="background: linear-gradient(135deg, #4338CA, #6366F1)">A</div>
+            <div class="disc-info">
+              <div class="disc-name">
+                AI & Prompt Engineers
+                <span class="verified-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </span>
+              </div>
+              <span class="disc-meta">310K Members • <span class="file-size-badge" style="background:#EEF2FF; color:#4338CA; border-color:#C7D2FE">💾 120 MB Datasets</span></span>
+            </div>
+          </div>
+          <p class="disc-desc">Discover groundbreaking ChatGPT prompts, Claude artifacts, Midjourney techniques, and AI tools.</p>
+          <div class="disc-card-action">
+            <span class="disc-tag" style="background:#EEF2FF; color:#4338CA">AI & Prompts</span>
+            <a href="https://t.me/s/aipromptengineers" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let lastFrameHeight = 0;
+    function sendHeight() {
+      const container = document.querySelector('.search-container-main');
+      let h = container ? container.offsetHeight + 60 : document.body.scrollHeight;
+      h = Math.max(h, 480);
+      const finalH = Math.ceil(h);
+      if (Math.abs(lastFrameHeight - finalH) > 3) {
+        lastFrameHeight = finalH;
+        window.parent.postMessage({ frameHeight: finalH }, '*');
+      }
+    }
+
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight, { passive: true });
+    const observer = new MutationObserver(sendHeight);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    function triggerInlineSearch() {
+      const mainInput = document.getElementById('tsInlineSearchInput');
+      const cseInput = document.querySelector('input.gsc-input');
+      const cseBtn = document.querySelector('button.gsc-search-button-v2');
+
+      if (mainInput && mainInput.value.trim()) {
+        const val = mainInput.value.trim();
+        if (cseInput) {
+          cseInput.value = val;
+          if (cseBtn) {
+            cseBtn.click();
+          } else {
+            const event = new KeyboardEvent('keydown', { key: 'Enter', keyCode: 13, bubbles: true });
+            cseInput.dispatchEvent(event);
+          }
+        }
+        updateDiscoveryGrid(val);
+      }
+    }
+
+    function handleInlineSearchKey(e) {
+      updateDiscoveryGrid(e.target.value);
+      if (e.key === 'Enter') {
+        triggerInlineSearch();
+      }
+    }
+
+    function handleCatSelectChange(cat) {
+      const activeTab = Array.from(document.querySelectorAll('.cat-tab')).find(t => t.getAttribute('data-cat') === cat);
+      filterCategory(cat, activeTab || document.querySelector('.cat-tab'));
+    }
+
+    function filterCategory(cat, el) {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+
+      const input = document.querySelector('input.gsc-input') || document.getElementById('tsInlineSearchInput');
+      const btn = document.querySelector('button.gsc-search-button-v2');
+      if (input) {
+        let val = input.value || 'technology';
+        val = val.replace(/\b(zip|pdf|apk|channel|joinchat|\+)\b/gi, '').trim();
+        
+        if (cat === 'teledrive' || cat === 'files') val += ' zip pdf apk file';
+        if (cat === 'vault') val += ' joinchat';
+        if (cat === 'channels') val += ' channel';
+        if (cat === 'bots') val += ' bot';
+
+        input.value = val;
+        const mainInput = document.getElementById('tsInlineSearchInput');
+        if (mainInput) mainInput.value = val;
+
+        if (btn) btn.click();
+      }
+    }
+
+    // Global Click Interceptor
+    document.addEventListener('click', function(e) {
+      const anchor = e.target.closest('a');
+      if (!anchor) return;
+      
+      if (anchor.classList.contains('gsc-cursor-page') || 
+          anchor.closest('.gsc-cursor-box') || 
+          anchor.closest('.gsc-pagination') ||
+          anchor.closest('.gsc-resultsHeader') ||
+          (anchor.getAttribute('href') && anchor.getAttribute('href').startsWith('javascript:'))) {
+        return;
+      }
+
+      const href = anchor.getAttribute('href') || anchor.href;
+      if (href && href !== '#' && !href.startsWith('javascript:')) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
+    }, true);
+
+    const myWebResultsRenderedCallback = () => {
+      const discoveryGrid = document.getElementById('discoveryGrid');
+      const resultsContainer = document.querySelector('.gsc-results-wrapper-visible');
+      if (discoveryGrid && resultsContainer) {
+        discoveryGrid.style.display = 'none';
+      }
+
+      sendHeight();
+
+      const results = document.querySelectorAll('.gsc-webResult.gsc-result');
+      results.forEach(card => {
+        if (card.getAttribute('data-ts-enhanced') === 'true' && card.querySelector('.card-actions-row')) return;
+        
+        const titleLink = card.querySelector('a.gs-title') || card.querySelector('.gs-title a') || card.querySelector('a');
+        if (titleLink) {
+          const originalHref = titleLink.getAttribute('href');
+          const titleText = titleLink.textContent || 'Telegram Resource';
+
+          if (originalHref) {
+            titleLink.setAttribute('target', '_blank');
+
+            if (!card.querySelector('.card-actions-row')) {
+              const actionRow = document.createElement('div');
+              actionRow.className = 'card-actions-row';
+              
+              const primaryBtn = document.createElement('a');
+              primaryBtn.className = 'ts-card-action-btn';
+              primaryBtn.href = originalHref;
+              primaryBtn.target = '_blank';
+              primaryBtn.rel = 'noopener';
+              primaryBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> Open Channel ↗';
+              
+              const copyBtn = document.createElement('button');
+              copyBtn.className = 'ts-copy-btn';
+              copyBtn.innerHTML = '📋 Copy Link';
+              copyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigator.clipboard.writeText(originalHref);
+                window.parent.postMessage({ type: 'toast', message: '✓ Link copied to clipboard!', toastType: 'success' }, '*');
+              });
+
+              const bookmarkBtn = document.createElement('button');
+              bookmarkBtn.className = 'ts-bookmark-btn';
+              bookmarkBtn.innerHTML = '⭐ Bookmark';
+              bookmarkBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.parent.postMessage({ type: 'bookmarkToggle', title: titleText, url: originalHref }, '*');
+                bookmarkBtn.classList.toggle('saved');
+              });
+
+              actionRow.appendChild(primaryBtn);
+              actionRow.appendChild(copyBtn);
+              actionRow.appendChild(bookmarkBtn);
+              card.appendChild(actionRow);
+            }
+          }
+        }
+        card.setAttribute('data-ts-enhanced', 'true');
+      });
+    };
+
+    function updateDiscoveryGrid(query) {
+      const grid = document.querySelector('.discovery-cards-grid');
+      const titleEl = document.querySelector('.discovery-title');
+      if (!grid || !query || !query.trim()) return;
+
+      const clean = query.trim();
+      const lower = clean.toLowerCase();
+      const words = clean.split(/\s+/).filter(w => w.length > 0);
+      const cap = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+
+      if (titleEl) {
+        titleEl.textContent = `⚡ Results for "${cap}"`;
+      }
+
+      let cards = [];
+      if (lower.includes('edu') || lower.includes('mail') || lower.includes('method') || lower.includes('student')) {
+        cards = [
+          { name: `${cap} Hub & Perks Vault`, meta: '245K Members • 💾 14.8 MB PDF', desc: 'Verified methods, student perk activation (GitHub Student Pack, Notion, Canva Pro), drive access, and lifetime edu email guides.', tag: 'Edu Perks', link: 'https://t.me/s/edumail_methods_official', avatar: 'E', bg: 'linear-gradient(135deg, #2563EB, #3B82F6)', rank: 1 },
+          { name: `VIP Tech Methods & ${cap}`, meta: '188K Members • 💾 32.4 MB ZIP', desc: 'Daily updated working bin methods, university email portal tricks, and premium student perks.', tag: 'VIP Methods', link: 'https://t.me/s/vip_edu_methods_vault', avatar: 'V', bg: 'linear-gradient(135deg, #4338CA, #2563EB)', rank: 2 },
+          { name: `TeleDrive: ${cap} Resources`, meta: '112K Members • 💾 85.2 MB RAR', desc: 'Archival database of verified email creation methods, guides, and tools.', tag: 'TeleDrive', link: 'https://t.me/s/teledrive_edu_vault', avatar: 'T', bg: 'linear-gradient(135deg, #059669, #10B981)', rank: 3 }
+        ];
+      } else {
+        const slug = words.join('_').toLowerCase().replace(/[^a-z0-9_]/g, '');
+        cards = [
+          { name: `${cap} Official Hub`, meta: '220K Members • 💾 18.5 MB PDF', desc: `Premier Telegram channel for verified ${clean} updates, resources, and direct downloads.`, tag: 'Featured', link: `https://t.me/s/${slug || 'telegram'}_official_hub`, avatar: cap.charAt(0) || 'T', bg: 'linear-gradient(135deg, #2563EB, #3B82F6)', rank: 1 },
+          { name: `VIP ${cap} Community`, meta: '165K Members • 💾 145.2 MB ZIP', desc: `Exclusive tools, community discussions, and daily shared file packs for ${clean}.`, tag: 'Community', link: `https://t.me/s/vip_${slug || 'vault'}_network`, avatar: 'V', bg: 'linear-gradient(135deg, #4338CA, #2563EB)', rank: 2 },
+          { name: `TeleDrive: ${cap} Vault`, meta: '98K Members • 💾 64.0 MB RAR', desc: `Archival drive index containing curated ${clean} files, docs, and direct links.`, tag: 'TeleDrive', link: `https://t.me/s/teledrive_${slug || 'resources'}_vault`, avatar: 'D', bg: 'linear-gradient(135deg, #D97706, #F59E0B)', rank: 3 }
+        ];
+      }
+
+      grid.innerHTML = cards.map(c => `
+        <div class="disc-card">
+          <div class="disc-card-rank">${c.rank}</div>
+          <div class="disc-card-head">
+            <div class="disc-avatar" style="background: ${c.bg}">${c.avatar}</div>
+            <div class="disc-info">
+              <div class="disc-name">
+                ${c.name}
+                <span class="verified-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </span>
+              </div>
+              <span class="disc-meta">${c.meta}</span>
+            </div>
+          </div>
+          <p class="disc-desc">${c.desc}</p>
+          <div class="disc-card-action">
+            <span class="disc-tag">${c.tag}</span>
+            <a href="${c.link}" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const setPlaceholder = () => {
+      const input = document.querySelector('input.gsc-input');
+      if (input) {
+        input.setAttribute('placeholder', 'Search 10M+ channels, bots, .zip files, .pdf courses...');
+        input.addEventListener('keyup', (e) => {
+          updateDiscoveryGrid(input.value);
+        });
+      }
+    };
+
+    window.__gcse || (window.__gcse = {});
+    window.__gcse.searchCallbacks = {
+      web: {
+        ready: () => {
+          setPlaceholder();
+          sendHeight();
+        },
+        rendered: myWebResultsRenderedCallback
+      }
+    };
+  </script>
+</body>
+</html>

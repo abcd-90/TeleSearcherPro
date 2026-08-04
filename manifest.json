@@ -1,0 +1,17 @@
+{
+  "name": "TeleSearch PRO — Telegram Search Engine",
+  "short_name": "TeleSearch",
+  "description": "The premier ultra-fast search engine indexing 10M+ Telegram channels, groups, and bots.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#07080C",
+  "theme_color": "#00F2FE",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

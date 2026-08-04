@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeleSearch PRO — VIP Underground Intelligence & Search Engine</title>
+  <meta name="description" content="TeleSearch PRO is the premier, ultra-fast VIP search engine for Telegram. Featuring OSINT Network Graph, Crypto Alpha Radar, Bot Sandbox, and Deep File Search." />
+  <meta name="keywords" content="telesearch, telegram search engine, telegram group search, telegram channel search, telegram osint, crypto alpha signals, telegram bot simulator" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  
+  <!-- PWA & OpenGraph -->
+  <link rel="manifest" href="manifest.json">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TeleSearch PRO — Telegram Search Engine" />
+  <meta property="og:description" content="Discover millions of verified Telegram channels, groups, bots, and direct files instantly." />
+  <meta property="og:site_name" content="TeleSearch PRO" />
+  
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="apple-touch-icon" href="images/logo.svg">
+  <link rel="stylesheet" href="css/telesearch.css">
+  
+  <!-- Scripts -->
+  <script src="js/security.js" defer></script>
+  <script src="js/toast.js" defer></script>
+  <script src="js/antigravity-bg.js" defer></script>
+  <script src="js/network-graph.js" defer></script>
+  <script src="js/bot-sandbox.js" defer></script>
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "TeleSearch PRO",
+    "url": "https://telesearcher.vercel.app",
+    "author": {
+      "@type": "Person",
+      "name": "Mr Sami"
+    },
+    "description": "The premier Telegram search engine indexing millions of channels."
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Floating Clean Glass Header Navbar -->
+  <header class="header-nav" role="banner">
+    <div class="header-glass-bar">
+      <a href="index.html" class="brand-logo" title="TeleSearch PRO Home">
+        <span class="brand-logo-text">
+          TeleSearcher <span class="pro-badge-pill">PRO</span>
+        </span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="live-status-badge">
+          <span class="live-pulse-dot"></span>
+          Index Active • 10M+ Channels
+        </div>
+        
+        <button class="nav-btn-vip" onclick="openAlphaModal()">
+          Alpha Radar
+        </button>
+
+        <button class="nav-btn-vip" onclick="openOsintModal()">
+          OSINT Graph
+        </button>
+
+        <button class="nav-btn-vip" onclick="openBotSandboxModal()">
+          Bot Sandbox
+        </button>
+
+        <div class="dropdown-wrapper">
+          <button class="nav-btn-vip">
+            Tools ▾
+          </button>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" onclick="openAlphaModal()">📈 Alpha Signal Radar</div>
+            <div class="dropdown-item" onclick="openOsintModal()">🕸️ OSINT 3D Visualizer</div>
+            <div class="dropdown-item" onclick="openBotSandboxModal()">🤖 Bot Sandbox Simulator</div>
+            <div class="dropdown-item" onclick="openBookmarksModal()">⭐ Saved Bookmarks</div>
+            <div class="dropdown-item" onclick="searchTopic('zip pdf apk file')">📦 TeleDrive Deep Search</div>
+          </div>
+        </div>
+
+        <button class="nav-btn-vip" onclick="openBookmarksModal()">
+          ♡ Saved (<span id="bookmarkCount">0</span>)
+        </button>
+
+        <button class="cmd-shortcut-pill" onclick="openCommandModal()">
+          <span>⌘ K Search</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper" role="main">
+    
+    <!-- Hero Header Layout -->
+    <section class="hero-section">
+      <div class="hero-container">
+        
+        <div class="hero-content">
+          <div class="hero-pill-tag">
+            ⚡ ULTRA-FAST TELEGRAM SEARCH ENGINE
+          </div>
+          <h1 class="hero-title">
+            Discover. Search. Connect. <span class="hero-highlight-alt">Better.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Search millions of verified Telegram channels, groups, bots, and files across tech, crypto, gaming, news, and AI — instantly.
+          </p>
+          
+          <!-- Live Metrics Bar -->
+          <div class="hero-metrics-bar">
+            <div class="metric-item">
+              <div class="metric-icon">⚡</div>
+              <div>
+                <div class="metric-value">Sub-Second Search</div>
+                <div class="metric-label">Lightning fast results</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon">🛡️</div>
+              <div>
+                <div class="metric-value">100% Private</div>
+                <div class="metric-label">No logs. No tracking.</div>
+              </div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-icon">🌐</div>
+              <div>
+                <div class="metric-value">180+ Regions</div>
+                <div class="metric-label">Global index coverage</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Hero Card Visual -->
+        <div class="hero-visual-container">
+          <div class="hero-3d-card">
+            <div class="hero-tg-icon">✈️</div>
+            <div class="hero-tg-badge">TeleSearch PRO Engine</div>
+
+            <div class="floating-node-pill node-pill-1">
+              <span>📡</span> 10M+ Channels
+            </div>
+            <div class="floating-node-pill node-pill-2">
+              <span>🔒</span> Zero-Log Privacy
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Topic Search Chips Bar -->
+      <div class="topic-chips-container">
+        <span class="topic-chip-label">POPULAR TOPICS</span>
+        <button class="topic-chip" onclick="searchTopic('AI & Prompts')">🤖 AI & Prompts</button>
+        <button class="topic-chip" onclick="searchTopic('CyberSecurity Hacking')">🛡️ CyberSecurity</button>
+        <button class="topic-chip" onclick="searchTopic('Crypto Signals Trading')">📈 Crypto Signals</button>
+        <button class="topic-chip" onclick="searchTopic('Free Courses Web Development')">🛠️ Free Courses</button>
+        <button class="topic-chip" onclick="searchTopic('Dev Tools Software')">💻 Dev Tools</button>
+        <button class="topic-chip" onclick="searchTopic('Tech News Technology')">📰 Tech News</button>
+        <button class="topic-chip" onclick="searchTopic('Gaming Community')">🎮 Gaming</button>
+        <button class="topic-chip" onclick="searchTopic('Trading Forex Crypto')">📊 Trading</button>
+      </div>
+    </section>
+
+    <!-- Search Engine Iframe Section -->
+    <section class="iframe-wrapper">
+      <iframe id="cseFrame" src="search_ext_iframe.html" title="TeleSearch Engine Results"></iframe>
+    </section>
+
+    <!-- "Why TeleSearcher PRO?" Feature Highlight Section -->
+    <section class="why-section">
+      <div class="why-header">
+        <h2 class="why-title">Why TeleSearcher <span style="color:var(--primary-blue)">PRO</span>?</h2>
+        <p class="why-subtitle">Empowering millions with unthrottled access to global Telegram intelligence.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h3 class="why-card-title">Blazing Fast</h3>
+          <p class="why-card-desc">Sub-second search engine</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🔒</div>
+          <h3 class="why-card-title">Private & Secure</h3>
+          <p class="why-card-desc">Always private, never tracked</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🔄</div>
+          <h3 class="why-card-title">Highly Accurate</h3>
+          <p class="why-card-desc">Verified & filtered results</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🌐</div>
+          <h3 class="why-card-title">Global Coverage</h3>
+          <p class="why-card-desc">180+ countries indexed</p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon">🎯</div>
+          <h3 class="why-card-title">Always Updated</h3>
+          <p class="why-card-desc">Fresh index, daily</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- "Stay Connected" Social Hub Section -->
+    <section class="social-hub-section">
+      <div class="social-hub-header">
+        <h2 class="social-hub-title">Stay Connected</h2>
+        <p class="social-hub-subtitle">Join our official platforms and never miss updates!</p>
+      </div>
+
+      <div class="social-cards-grid">
+        <a href="https://whatsapp.com/channel/0029VbCYKrl35fLvRIDKEt0j" target="_blank" rel="noopener" class="social-hub-card">
+          <div class="social-hub-icon" style="background: linear-gradient(135deg, #25D366, #128C7E)">💬</div>
+          <div class="social-hub-info">
+            <div class="social-hub-name">WhatsApp Channel</div>
+            <div class="social-hub-sub">Updates & Alerts</div>
+          </div>
+        </a>
+
+        <a href="https://whatsapp.com/channel/0029VanfEERGehERsfi1J81B" target="_blank" rel="noopener" class="social-hub-card">
+          <div class="social-hub-icon" style="background: linear-gradient(135deg, #4338CA, #2563EB)">💎</div>
+          <div class="social-hub-info">
+            <div class="social-hub-name">LWS Vault Channel</div>
+            <div class="social-hub-sub">Premium Access</div>
+          </div>
+        </a>
+
+        <a href="https://whatsapp.com/channel/0029VbC7UW8CMY0FNy4ABt1A" target="_blank" rel="noopener" class="social-hub-card">
+          <div class="social-hub-icon" style="background: linear-gradient(135deg, #0284C7, #2563EB)">🛠️</div>
+          <div class="social-hub-info">
+            <div class="social-hub-name">LWS Tools Hub</div>
+            <div class="social-hub-sub">Smart Utilities</div>
+          </div>
+        </a>
+
+        <a href="https://t.me/learnwithsamii" target="_blank" rel="noopener" class="social-hub-card">
+          <div class="social-hub-icon" style="background: linear-gradient(135deg, #2AABEE, #229ED9)">✈️</div>
+          <div class="social-hub-info">
+            <div class="social-hub-name">Telegram Channel</div>
+            <div class="social-hub-sub">Community</div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/@LearnWithSamiii" target="_blank" rel="noopener" class="social-hub-card">
+          <div class="social-hub-icon" style="background: linear-gradient(135deg, #DC2626, #B91C1C)">▶️</div>
+          <div class="social-hub-info">
+            <div class="social-hub-name">YouTube Channel</div>
+            <div class="social-hub-sub">Videos & Tutorials</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- VIP 1: OSINT 3D Channel Network Graph Modal -->
+  <div id="osintModal" class="cmd-modal-backdrop" onclick="closeOsintModal(event)">
+    <div class="cmd-modal-box" style="max-width: 850px;">
+      <div class="cmd-header">
+        <span style="font-size: 1.2rem; color: var(--primary-blue)">🕸️</span>
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">OSINT 3D Channel Connection Visualizer</h3>
+      </div>
+      <div class="cmd-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Real-time interactive node visualization of cross-channel forwards, shared admins, and network ecosystems.</p>
+        <div class="osint-canvas-wrapper">
+          <canvas id="osintCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIP 2: Crypto & Forex Alpha Radar Modal -->
+  <div id="alphaModal" class="cmd-modal-backdrop" onclick="closeAlphaModal(event)">
+    <div class="cmd-modal-box" style="max-width: 680px;">
+      <div class="cmd-header">
+        <span style="font-size: 1.2rem; color: var(--accent-amber)">📈</span>
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Crypto & Forex Alpha Signal Radar</h3>
+      </div>
+      <div class="cmd-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Live real-time stream of verified trading signals across top Telegram VIP channels.</p>
+        
+        <div class="signal-cards-list">
+          <div class="signal-card">
+            <div class="signal-info">
+              <div class="signal-pair">🚀 BTC/USDT — LONG 85,400 <span class="win-rate-badge">🟢 91% Win-Rate</span></div>
+              <span class="signal-meta">Target: 88,000 • Stop-Loss: 84,100 • Source: Crypto Alpha Hub</span>
+            </div>
+            <button class="ts-copy-btn" onclick="window.TeleSearchToast.show('Signal copied to clipboard!', 'success')">Copy Signal</button>
+          </div>
+
+          <div class="signal-card">
+            <div class="signal-info">
+              <div class="signal-pair">📉 ETH/USDT — SHORT 3,210 <span class="win-rate-badge">🟢 88% Win-Rate</span></div>
+              <span class="signal-meta">Target: 3,080 • Stop-Loss: 3,260 • Source: Forex VIP Signals</span>
+            </div>
+            <button class="ts-copy-btn" onclick="window.TeleSearchToast.show('Signal copied to clipboard!', 'success')">Copy Signal</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- VIP 3: Live Bot Sandbox Chat Simulator Modal -->
+  <div id="botSandboxModal" class="cmd-modal-backdrop" onclick="closeBotSandboxModal(event)">
+    <div class="cmd-modal-box" style="max-width: 680px;">
+      <div class="cmd-header">
+        <span style="font-size: 1.2rem; color: var(--primary-blue)">🤖</span>
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Live Bot Sandbox Simulator (@TeleSearchProBot)</h3>
+      </div>
+      <div class="cmd-body">
+        <div id="tgChatBox" class="tg-chat-box">
+          <div class="tg-msg-bubble tg-msg-bot">
+            <div class="tg-msg-text">👋 Welcome to <b>TeleSearch PRO Bot Sandbox</b>!<br><br>Test any bot command live right inside your browser without opening Telegram.<br><br>Try typing <code>/start</code> or <code>/status</code>!</div>
+            <div class="tg-msg-time">12:00 PM</div>
+          </div>
+        </div>
+
+        <div class="tg-chat-input-row">
+          <input type="text" id="tgChatInput" class="tg-input-field" placeholder="Send command (e.g. /start, /search python)...">
+          <button class="tg-send-btn" onclick="triggerBotSend()">Send ↵</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Palette Modal Overlay (⌘K) -->
+  <div id="cmdModal" class="cmd-modal-backdrop" onclick="closeCommandModal(event)">
+    <div class="cmd-modal-box">
+      <div class="cmd-header">
+        <span style="font-size: 1.2rem; color: var(--primary-blue)">⌘</span>
+        <input type="text" id="cmdInput" class="cmd-search-input" placeholder="Type a command or topic..." onkeyup="filterCommandItems(this.value)">
+      </div>
+      <div class="cmd-body" id="cmdBody">
+        <div class="cmd-group-title">VIP Features</div>
+        <div class="cmd-item" onclick="openAlphaModal()">
+          <div class="cmd-item-left">📈 <span>Crypto Alpha Signal Radar</span></div>
+          <span style="font-size:0.78rem; color:var(--text-muted)">VIP Tool</span>
+        </div>
+        <div class="cmd-item" onclick="openOsintModal()">
+          <div class="cmd-item-left">🕸️ <span>OSINT 3D Channel Network Visualizer</span></div>
+          <span style="font-size:0.78rem; color:var(--text-muted)">VIP Tool</span>
+        </div>
+        <div class="cmd-item" onclick="openBotSandboxModal()">
+          <div class="cmd-item-left">🤖 <span>Telegram Bot Sandbox Simulator</span></div>
+          <span style="font-size:0.78rem; color:var(--text-muted)">VIP Tool</span>
+        </div>
+
+        <div class="cmd-group-title" style="margin-top:12px;">Quick Actions</div>
+        <div class="cmd-item" onclick="openBookmarksModal()">
+          <div class="cmd-item-left">⭐ <span>View Saved Bookmarks</span></div>
+          <span style="font-size:0.78rem; color:var(--text-muted)">Action</span>
+        </div>
+        <div class="cmd-item" onclick="copyShareLink()">
+          <div class="cmd-item-left">🔗 <span>Copy App Share Link</span></div>
+          <span style="font-size:0.78rem; color:var(--text-muted)">Action</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Bookmarks Modal Overlay -->
+  <div id="bookmarksModal" class="cmd-modal-backdrop" onclick="closeBookmarksModal(event)">
+    <div class="cmd-modal-box">
+      <div class="cmd-header">
+        <span style="font-size: 1.2rem; color: var(--accent-amber)">⭐</span>
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Saved Bookmarks</h3>
+      </div>
+      <div class="cmd-body" id="bookmarksBody">
+        <p style="text-align: center; color: var(--text-muted); padding: 20px;">No saved bookmarks yet. Click ⭐ Bookmark on any search card!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modern Multi-Column SaaS Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      
+      <!-- LWS Official Community & Credits Banner Card -->
+      <div class="lws-banner-card">
+        <div class="lws-banner-header">
+          <div class="lws-brand-title">
+            🎀 Learn With Sami | LWS 🧠🇵🇰
+          </div>
+          <div class="lws-members-badge">
+            ❤️ 4.4K+ Members • ⚡ Learn • Build • Grow
+          </div>
+        </div>
+
+        <div class="lws-features-grid">
+          <div class="lws-feature-item">💎 Premium Resources & Hidden Gems</div>
+          <div class="lws-feature-item">🤖 AI Tools & Automation</div>
+          <div class="lws-feature-item">📚 Paid Courses & Tutorials</div>
+          <div class="lws-feature-item">🛠️ Software, Extensions & Methods</div>
+        </div>
+
+        <div class="lws-social-buttons">
+          <a href="https://whatsapp.com/channel/0029VbCYKrl35fLvRIDKEt0j" target="_blank" rel="noopener" class="lws-btn-social lws-btn-wa-main">
+            🔥 Main WhatsApp Channel ↗
+          </a>
+          <a href="https://whatsapp.com/channel/0029VanfEERGehERsfi1J81B" target="_blank" rel="noopener" class="lws-btn-social lws-btn-vault">
+            💎 LWS Vault Channel ↗
+          </a>
+          <a href="https://whatsapp.com/channel/0029VbC7UW8CMY0FNy4ABt1A" target="_blank" rel="noopener" class="lws-btn-social lws-btn-wa-tools">
+            🛠️ LWS Tools Hub ↗
+          </a>
+          <a href="https://t.me/learnwithsamii" target="_blank" rel="noopener" class="lws-btn-social lws-btn-tg">
+            📦 Telegram Channel ↗
+          </a>
+          <a href="https://www.youtube.com/@LearnWithSamiii" target="_blank" rel="noopener" class="lws-btn-social lws-btn-yt">
+            ▶️ YouTube Channel ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-grid">
+        
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo" title="TeleSearch PRO Home">
+            <span class="brand-logo-text">
+              TeleSearcher <span class="pro-badge-pill">PRO</span>
+            </span>
+          </a>
+          <p class="footer-tagline">The premier ultra-fast search engine for Telegram. Indexing millions of verified channels, groups, files, and AI bots globally.</p>
+        </div>
+
+        <div>
+          <div class="footer-column-title">OFFICIAL HUBS</div>
+          <ul class="footer-links-list">
+            <li><a href="https://whatsapp.com/channel/0029VbCYKrl35fLvRIDKEt0j" target="_blank" rel="noopener">💬 WhatsApp Channel</a></li>
+            <li><a href="https://whatsapp.com/channel/0029VanfEERGehERsfi1J81B" target="_blank" rel="noopener">💎 LWS Vault Channel</a></li>
+            <li><a href="https://whatsapp.com/channel/0029VbC7UW8CMY0FNy4ABt1A" target="_blank" rel="noopener">🛠️ LWS Tools Hub</a></li>
+            <li><a href="https://t.me/learnwithsamii" target="_blank" rel="noopener">✈️ Telegram Channel</a></li>
+            <li><a href="https://www.youtube.com/@LearnWithSamiii" target="_blank" rel="noopener">▶️ YouTube Channel</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-column-title">VIP FEATURES</div>
+          <ul class="footer-links-list">
+            <li><a href="#" onclick="openAlphaModal(); return false;">Alpha Signal Radar</a></li>
+            <li><a href="#" onclick="openOsintModal(); return false;">OSINT 3D Graph</a></li>
+            <li><a href="#" onclick="openBotSandboxModal(); return false;">Bot Sandbox Simulator</a></li>
+            <li><a href="#" onclick="searchTopic('zip pdf apk'); return false;">TeleDrive File Search</a></li>
+            <li><a href="#" onclick="searchTopic('joinchat'); return false;">Private Vault Access</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-column-title">COMPANY</div>
+          <ul class="footer-links-list">
+            <li><a href="#">About TeleSearcher PRO</a></li>
+            <li><a href="#">System Status</a></li>
+            <li><a href="#">API Access</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="system-status-pill">
+          <span class="live-pulse-dot"></span>
+          All Systems Operational
+        </div>
+
+        <div class="footer-credit">
+          &copy; 2026 <strong>TeleSearcher PRO</strong>. All rights reserved. Made with <span class="heart-icon">❤️</span> by <strong>Learn With Sami | LWS</strong>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    const cseIframe = document.getElementById('cseFrame');
+    let bookmarks = JSON.parse(localStorage.getItem('ts_bookmarks') || '[]');
+    let osintGraphInstance = null;
+    let botSandboxInstance = null;
+
+    function updateBookmarkCount() {
+      const el = document.getElementById('bookmarkCount');
+      if (el) el.textContent = bookmarks.length;
+    }
+    updateBookmarkCount();
+
+    // Iframe postMessage Listener
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.frameHeight && cseIframe) {
+        cseIframe.style.height = e.data.frameHeight + 'px';
+      }
+      if (e.data && e.data.type === 'toast' && window.TeleSearchToast) {
+        window.TeleSearchToast.show(e.data.message, e.data.toastType || 'info');
+      }
+      if (e.data && e.data.type === 'bookmarkToggle') {
+        toggleBookmark(e.data.title, e.data.url);
+      }
+    });
+
+    function toggleBookmark(title, url) {
+      const idx = bookmarks.findIndex(b => b.url === url);
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        if (window.TeleSearchToast) window.TeleSearchToast.show(`Removed from Bookmarks`, 'info');
+      } else {
+        bookmarks.push({ title, url, time: Date.now() });
+        if (window.TeleSearchToast) window.TeleSearchToast.show(`⭐ Saved to Bookmarks!`, 'bookmark');
+      }
+      localStorage.setItem('ts_bookmarks', JSON.stringify(bookmarks));
+      updateBookmarkCount();
+    }
+
+    function searchTopic(query) {
+      if (cseIframe && cseIframe.contentWindow) {
+        const input = cseIframe.contentWindow.document.querySelector('input.gsc-input') || cseIframe.contentWindow.document.querySelector('input.ts-main-input');
+        const btn = cseIframe.contentWindow.document.querySelector('button.gsc-search-button-v2') || cseIframe.contentWindow.document.querySelector('button.ts-search-btn-primary');
+        if (input) {
+          input.value = query;
+          if (btn) {
+            btn.click();
+          } else {
+            const event = new KeyboardEvent('keydown', { key: 'Enter', keyCode: 13, bubbles: true });
+            input.dispatchEvent(event);
+          }
+          cseIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+
+    // Modal Trigger Handlers
+    function openCommandModal() {
+      const modal = document.getElementById('cmdModal');
+      if (modal) {
+        modal.classList.add('open');
+        setTimeout(() => document.getElementById('cmdInput')?.focus(), 100);
+      }
+    }
+
+    function closeCommandModal(e) {
+      if (!e || e.target.classList.contains('cmd-modal-backdrop')) {
+        document.getElementById('cmdModal')?.classList.remove('open');
+      }
+    }
+
+    function openOsintModal() {
+      closeCommandModal();
+      const modal = document.getElementById('osintModal');
+      if (modal) {
+        modal.classList.add('open');
+        if (!osintGraphInstance && window.OSINTNetworkGraph) {
+          osintGraphInstance = new window.OSINTNetworkGraph('osintCanvas');
+        }
+      }
+    }
+
+    function closeOsintModal(e) {
+      if (!e || e.target.classList.contains('cmd-modal-backdrop')) {
+        document.getElementById('osintModal')?.classList.remove('open');
+      }
+    }
+
+    function openAlphaModal() {
+      closeCommandModal();
+      const modal = document.getElementById('alphaModal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeAlphaModal(e) {
+      if (!e || e.target.classList.contains('cmd-modal-backdrop')) {
+        document.getElementById('alphaModal')?.classList.remove('open');
+      }
+    }
+
+    function openBotSandboxModal() {
+      closeCommandModal();
+      const modal = document.getElementById('botSandboxModal');
+      if (modal) {
+        modal.classList.add('open');
+        if (!botSandboxInstance && window.BotSandboxTester) {
+          botSandboxInstance = new window.BotSandboxTester('tgChatBox', 'tgChatInput');
+        }
+      }
+    }
+
+    function closeBotSandboxModal(e) {
+      if (!e || e.target.classList.contains('cmd-modal-backdrop')) {
+        document.getElementById('botSandboxModal')?.classList.remove('open');
+      }
+    }
+
+    function triggerBotSend() {
+      const input = document.getElementById('tgChatInput');
+      if (input && input.value.trim() && botSandboxInstance) {
+        botSandboxInstance.sendMessage(input.value.trim());
+        input.value = '';
+      }
+    }
+
+    function copyShareLink() {
+      closeCommandModal();
+      navigator.clipboard.writeText(window.location.href);
+      if (window.TeleSearchToast) window.TeleSearchToast.show('✓ App Share Link copied to clipboard!', 'success');
+    }
+
+    function openBookmarksModal() {
+      closeCommandModal();
+      const modal = document.getElementById('bookmarksModal');
+      const body = document.getElementById('bookmarksBody');
+      if (modal && body) {
+        if (bookmarks.length === 0) {
+          body.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 24px;">No saved bookmarks yet. Click ⭐ Bookmark on any search card!</p>';
+        } else {
+          body.innerHTML = bookmarks.map(b => `
+            <div class="cmd-item" onclick="window.open('${b.url}', '_blank')">
+              <div class="cmd-item-left">⭐ <span>${b.title}</span></div>
+              <span style="font-size:0.8rem; color:var(--primary-blue)">Open ↗</span>
+            </div>
+          `).join('');
+        }
+        modal.classList.add('open');
+      }
+    }
+
+    function closeBookmarksModal(e) {
+      if (!e || e.target.classList.contains('cmd-modal-backdrop')) {
+        document.getElementById('bookmarksModal')?.classList.remove('open');
+      }
+    }
+
+    function filterCommandItems(val) {
+      const body = document.getElementById('cmdBody');
+      if (!body) return;
+      const items = body.querySelectorAll('.cmd-item');
+      const lower = val.toLowerCase().trim();
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(lower)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Keyboard Shortcuts (⌘K and Esc)
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openCommandModal();
+      }
+      if (e.key === 'Escape') {
+        closeCommandModal();
+        closeBookmarksModal();
+        closeOsintModal();
+        closeAlphaModal();
+        closeBotSandboxModal();
+      }
+    });
+  </script>
+</body>
+</html>
