@@ -581,16 +581,30 @@
       </select>
       <button class="ts-search-btn-primary" onclick="triggerInlineSearch()">Search</button>
     </div>
+
+    <!-- Quick Topic Search Chips Bar -->
+    <div class="topic-chips-container" id="topicChipsBar">
+      <span class="topic-chip-label">POPULAR TOPICS</span>
+      <button class="topic-chip" onclick="filterCategory('ai', this); searchTopicQuery('AI & Prompts')">🤖 AI & Prompts</button>
+      <button class="topic-chip" onclick="filterCategory('channels', this); searchTopicQuery('CyberSecurity Hacking')">🛡️ CyberSecurity</button>
+      <button class="topic-chip" onclick="filterCategory('channels', this); searchTopicQuery('Crypto Signals Trading')">📈 Crypto Signals</button>
+      <button class="topic-chip" onclick="filterCategory('files', this); searchTopicQuery('Free Courses Web Development')">🔑 Free Courses</button>
+      <button class="topic-chip" onclick="filterCategory('bots', this); searchTopicQuery('Dev Tools Software')">💻 Dev Tools</button>
+      <button class="topic-chip" onclick="filterCategory('channels', this); searchTopicQuery('Tech News Technology')">📰 Tech News</button>
+      <button class="topic-chip" onclick="filterCategory('groups', this); searchTopicQuery('Gaming Community')">🎮 Gaming</button>
+      <button class="topic-chip" onclick="filterCategory('channels', this); searchTopicQuery('Trading Forex Crypto')">📊 Trading</button>
+      <button class="scroll-arrow-btn" title="Scroll right" onclick="scrollChipsRight()">›</button>
+    </div>
     
     <!-- Category & TeleDrive File Filter Tabs Bar -->
     <div class="category-tabs-bar">
       <div class="tabs-group-left">
         <div class="cat-tab active" data-cat="all" onclick="filterCategory('all', this)">⚡ All Results</div>
-        <div class="cat-tab" data-cat="channels" onclick="filterCategory('channels', this)">📢 Channels</div>
-        <div class="cat-tab" data-cat="groups" onclick="filterCategory('groups', this)">👥 Groups</div>
-        <div class="cat-tab" data-cat="bots" onclick="filterCategory('bots', this)">🤖 Bots</div>
-        <div class="cat-tab" data-cat="files" onclick="filterCategory('teledrive', this)">📁 Files</div>
-        <div class="cat-tab" data-cat="teledrive" onclick="filterCategory('teledrive', this)">📦 TeleDrive</div>
+        <div class="cat-tab" data-cat="channels" onclick="filterCategory('channels', this)">Channels</div>
+        <div class="cat-tab" data-cat="groups" onclick="filterCategory('groups', this)">Groups</div>
+        <div class="cat-tab" data-cat="bots" onclick="filterCategory('bots', this)">Bots</div>
+        <div class="cat-tab" data-cat="files" onclick="filterCategory('teledrive', this)">Files</div>
+        <div class="cat-tab" data-cat="teledrive" onclick="filterCategory('teledrive', this)">TeleDrive</div>
       </div>
       <button class="filter-btn-pill" onclick="filterCategory('all', document.querySelector('.cat-tab.active'))">
         ⚙️ Filters
@@ -611,72 +625,80 @@
         <a href="#" onclick="filterCategory('channels', document.querySelectorAll('.cat-tab')[1]); return false;" class="view-trending-link">View all trending ↗</a>
       </div>
 
-      <div class="discovery-cards-grid">
-        
-        <div class="disc-card">
-          <div class="disc-card-rank">1</div>
-          <div class="disc-card-head">
-            <div class="disc-avatar" style="background: linear-gradient(135deg, #1D4ED8, #2563EB)">Z</div>
-            <div class="disc-info">
-              <div class="disc-name">
-                Zero To Mastery
-                <span class="verified-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                </span>
+      <div style="position: relative; display: flex; align-items: center;">
+        <div class="discovery-cards-grid" id="discCardsGrid" style="flex: 1;">
+          
+          <div class="disc-card">
+            <div class="disc-card-rank">1</div>
+            <div class="disc-card-head">
+              <div class="disc-avatar" style="background: linear-gradient(135deg, #1D4ED8, #2563EB)">Z</div>
+              <div class="disc-info">
+                <div class="disc-name">
+                  Zero To Mastery
+                  <span class="verified-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  </span>
+                </div>
+                <span class="disc-meta">240K Members</span>
+                <span class="file-size-badge" style="margin-top: 4px; display: inline-flex;">💾 4.2GB Course Pack</span>
               </div>
-              <span class="disc-meta">240K Members • <span class="file-size-badge">💾 4.2 GB Course Pack</span></span>
+            </div>
+            <p class="disc-desc">Learn Ethical Hacking, Web Dev, Python, Cybersecurity, and Data Science with free resources.</p>
+            <div class="disc-card-action">
+              <span class="disc-tag">Featured Tech</span>
+              <a href="https://t.me/s/zerotomastery" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
             </div>
           </div>
-          <p class="disc-desc">Learn Ethical Hacking, Web Dev, Python, Cybersecurity, and Data Science with free resources.</p>
-          <div class="disc-card-action">
-            <span class="disc-tag">Featured Tech</span>
-            <a href="https://t.me/s/zerotomastery" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
-          </div>
-        </div>
 
-        <div class="disc-card">
-          <div class="disc-card-rank">2</div>
-          <div class="disc-card-head">
-            <div class="disc-avatar" style="background: linear-gradient(135deg, #059669, #10B981)">C</div>
-            <div class="disc-info">
-              <div class="disc-name">
-                Cyber Yodha
-                <span class="verified-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                </span>
+          <div class="disc-card">
+            <div class="disc-card-rank">2</div>
+            <div class="disc-card-head">
+              <div class="disc-avatar" style="background: linear-gradient(135deg, #059669, #10B981)">C</div>
+              <div class="disc-info">
+                <div class="disc-name">
+                  Cyber Yodha
+                  <span class="verified-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  </span>
+                </div>
+                <span class="disc-meta">185K Members</span>
+                <span class="file-size-badge" style="background:#ECFDF5; color:#059669; border-color:#A7F3D0; margin-top: 4px; display: inline-flex;">💾 280MB Toolset</span>
               </div>
-              <span class="disc-meta">185K Members • <span class="file-size-badge" style="background:#ECFDF5; color:#059669; border-color:#A7F3D0">💾 280 MB Toolset</span></span>
+            </div>
+            <p class="disc-desc">Daily security updates, penetration testing tutorials, CTF challenges, and ethical hacking guides.</p>
+            <div class="disc-card-action">
+              <span class="disc-tag" style="background:#ECFDF5; color:#059669">CyberSecurity</span>
+              <a href="https://t.me/s/cyberyodha" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
             </div>
           </div>
-          <p class="disc-desc">Daily security updates, penetration testing tutorials, CTF challenges, and ethical hacking guides.</p>
-          <div class="disc-card-action">
-            <span class="disc-tag" style="background:#ECFDF5; color:#059669">CyberSecurity</span>
-            <a href="https://t.me/s/cyberyodha" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
-          </div>
-        </div>
 
-        <div class="disc-card">
-          <div class="disc-card-rank">3</div>
-          <div class="disc-card-head">
-            <div class="disc-avatar" style="background: linear-gradient(135deg, #4338CA, #6366F1)">A</div>
-            <div class="disc-info">
-              <div class="disc-name">
-                AI & Prompt Engineers
-                <span class="verified-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                </span>
+          <div class="disc-card">
+            <div class="disc-card-rank">3</div>
+            <div class="disc-card-head">
+              <div class="disc-avatar" style="background: linear-gradient(135deg, #4338CA, #6366F1)">A</div>
+              <div class="disc-info">
+                <div class="disc-name">
+                  AI & Prompt Engineers
+                  <span class="verified-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  </span>
+                </div>
+                <span class="disc-meta">310K Members</span>
+                <span class="file-size-badge" style="background:#EEF2FF; color:#4338CA; border-color:#C7D2FE; margin-top: 4px; display: inline-flex;">💾 120MB Datasets</span>
               </div>
-              <span class="disc-meta">310K Members • <span class="file-size-badge" style="background:#EEF2FF; color:#4338CA; border-color:#C7D2FE">💾 120 MB Datasets</span></span>
+            </div>
+            <p class="disc-desc">Discover groundbreaking ChatGPT prompts, Claude artifacts, Midjourney techniques, and AI tools.</p>
+            <div class="disc-card-action">
+              <span class="disc-tag" style="background:#EEF2FF; color:#4338CA">AI & Prompts</span>
+              <a href="https://t.me/s/aipromptengineers" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
             </div>
           </div>
-          <p class="disc-desc">Discover groundbreaking ChatGPT prompts, Claude artifacts, Midjourney techniques, and AI tools.</p>
-          <div class="disc-card-action">
-            <span class="disc-tag" style="background:#EEF2FF; color:#4338CA">AI & Prompts</span>
-            <a href="https://t.me/s/aipromptengineers" target="_blank" rel="noopener" class="disc-btn">Explore ↗</a>
-          </div>
+
         </div>
 
+        <button class="scroll-arrow-btn" style="margin-left: 12px;" title="Scroll cards" onclick="scrollGridRight()">›</button>
       </div>
+
     </div>
 
   </div>
@@ -698,6 +720,24 @@
     window.addEventListener('resize', sendHeight, { passive: true });
     const observer = new MutationObserver(sendHeight);
     observer.observe(document.body, { childList: true, subtree: true });
+
+    function scrollChipsRight() {
+      const container = document.getElementById('topicChipsBar');
+      if (container) container.scrollBy({ left: 240, behavior: 'smooth' });
+    }
+
+    function scrollGridRight() {
+      const grid = document.getElementById('discCardsGrid');
+      if (grid) grid.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+
+    function searchTopicQuery(query) {
+      const mainInput = document.getElementById('tsInlineSearchInput');
+      if (mainInput) {
+        mainInput.value = query;
+        triggerInlineSearch();
+      }
+    }
 
     function triggerInlineSearch() {
       const mainInput = document.getElementById('tsInlineSearchInput');
