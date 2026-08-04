@@ -1,0 +1,10 @@
+{
+  "name": "telesearcher-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TeleSearch PRO — VIP Underground Intelligence & Search Engine",
+  "scripts": {
+    "build": "echo Static build complete",
+    "start": "node local-server.js"
+  }
+}
