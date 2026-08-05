@@ -52,7 +52,8 @@
         </span>
       </a>
 
-      <div class="nav-actions">
+      <!-- Desktop Navigation Actions -->
+      <div class="nav-actions desktop-nav-actions">
         <div class="live-status-badge">
           <span class="live-pulse-dot"></span>
           Index Active • 10M+ Channels
@@ -90,6 +91,56 @@
         <button class="cmd-shortcut-pill" onclick="openCommandModal()">
           <span>⌘ K Search</span>
         </button>
+      </div>
+
+      <!-- Mobile Right Quick Actions -->
+      <div class="mobile-nav-right">
+        <button class="cmd-shortcut-pill mobile-cmd-pill" onclick="openCommandModal()" title="Quick Search">
+          <span>⌘ K</span>
+        </button>
+        
+        <button class="mobile-menu-toggle" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Slide-Down Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-drawer-inner">
+        <div class="mobile-status-row">
+          <div class="live-status-badge">
+            <span class="live-pulse-dot"></span>
+            Index Active • 10M+ Channels
+          </div>
+        </div>
+
+        <div class="mobile-drawer-links">
+          <button class="mobile-drawer-item" onclick="openAlphaModal(); closeMobileMenu();">
+            <span>📈 Crypto Alpha Signal Radar</span>
+            <span class="mobile-badge-vip">VIP</span>
+          </button>
+
+          <button class="mobile-drawer-item" onclick="openOsintModal(); closeMobileMenu();">
+            <span>🕸️ OSINT 3D Graph Visualizer</span>
+            <span class="mobile-badge-vip">VIP</span>
+          </button>
+
+          <button class="mobile-drawer-item" onclick="openBotSandboxModal(); closeMobileMenu();">
+            <span>🤖 Telegram Bot Sandbox</span>
+            <span class="mobile-badge-vip">VIP</span>
+          </button>
+
+          <button class="mobile-drawer-item" onclick="openBookmarksModal(); closeMobileMenu();">
+            <span>⭐ Saved Bookmarks (<span id="bookmarkCountMobile">0</span>)</span>
+          </button>
+
+          <button class="mobile-drawer-item" onclick="searchTopic('zip pdf apk file'); closeMobileMenu();">
+            <span>📦 TeleDrive Deep Search</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -301,8 +352,11 @@
   <div id="osintModal" class="cmd-modal-backdrop" onclick="closeOsintModal(event)">
     <div class="cmd-modal-box" style="max-width: 850px;">
       <div class="cmd-header">
-        <span style="font-size: 1.2rem; color: var(--primary-blue)">🕸️</span>
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">OSINT 3D Channel Connection Visualizer</h3>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.2rem; color: var(--primary-blue)">🕸️</span>
+          <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">OSINT 3D Channel Visualizer</h3>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('osintModal').classList.remove('open')">✕</button>
       </div>
       <div class="cmd-body">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Real-time interactive node visualization of cross-channel forwards, shared admins, and network ecosystems.</p>
@@ -317,8 +371,11 @@
   <div id="alphaModal" class="cmd-modal-backdrop" onclick="closeAlphaModal(event)">
     <div class="cmd-modal-box" style="max-width: 680px;">
       <div class="cmd-header">
-        <span style="font-size: 1.2rem; color: var(--accent-amber)">📈</span>
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Crypto & Forex Alpha Signal Radar</h3>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.2rem; color: var(--accent-amber)">📈</span>
+          <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Crypto & Forex Alpha Signal Radar</h3>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('alphaModal').classList.remove('open')">✕</button>
       </div>
       <div class="cmd-body">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Live real-time stream of verified trading signals across top Telegram VIP channels.</p>
@@ -349,8 +406,11 @@
   <div id="botSandboxModal" class="cmd-modal-backdrop" onclick="closeBotSandboxModal(event)">
     <div class="cmd-modal-box" style="max-width: 680px;">
       <div class="cmd-header">
-        <span style="font-size: 1.2rem; color: var(--primary-blue)">🤖</span>
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Live Bot Sandbox Simulator (@TeleSearchProBot)</h3>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.2rem; color: var(--primary-blue)">🤖</span>
+          <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Live Bot Sandbox Simulator</h3>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('botSandboxModal').classList.remove('open')">✕</button>
       </div>
       <div class="cmd-body">
         <div id="tgChatBox" class="tg-chat-box">
@@ -374,6 +434,7 @@
       <div class="cmd-header">
         <span style="font-size: 1.2rem; color: var(--primary-blue)">⌘</span>
         <input type="text" id="cmdInput" class="cmd-search-input" placeholder="Type a command or topic..." onkeyup="filterCommandItems(this.value)">
+        <button class="modal-close-btn" onclick="document.getElementById('cmdModal').classList.remove('open')">✕</button>
       </div>
       <div class="cmd-body" id="cmdBody">
         <div class="cmd-group-title">VIP Features</div>
@@ -407,8 +468,11 @@
   <div id="bookmarksModal" class="cmd-modal-backdrop" onclick="closeBookmarksModal(event)">
     <div class="cmd-modal-box">
       <div class="cmd-header">
-        <span style="font-size: 1.2rem; color: var(--accent-amber)">⭐</span>
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Saved Bookmarks</h3>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.2rem; color: var(--accent-amber)">⭐</span>
+          <h3 style="font-size: 1.1rem; color: var(--text-primary); font-weight: 700;">Saved Bookmarks</h3>
+        </div>
+        <button class="modal-close-btn" onclick="document.getElementById('bookmarksModal').classList.remove('open')">✕</button>
       </div>
       <div class="cmd-body" id="bookmarksBody">
         <p style="text-align: center; color: var(--text-muted); padding: 20px;">No saved bookmarks yet. Click ⭐ Bookmark on any search card!</p>
@@ -490,9 +554,30 @@
 
     function updateBookmarkCount() {
       const el = document.getElementById('bookmarkCount');
+      const elMobile = document.getElementById('bookmarkCountMobile');
       if (el) el.textContent = bookmarks.length;
+      if (elMobile) elMobile.textContent = bookmarks.length;
     }
     updateBookmarkCount();
+
+    // Mobile Menu Drawer Controls
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (drawer && btn) {
+        drawer.classList.toggle('open');
+        btn.classList.toggle('active');
+      }
+    }
+
+    function closeMobileMenu() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (drawer && btn) {
+        drawer.classList.remove('open');
+        btn.classList.remove('active');
+      }
+    }
 
     // Iframe postMessage Listener
     window.addEventListener('message', (e) => {
@@ -559,6 +644,8 @@
         modal.classList.add('open');
         if (!osintGraphInstance && window.OSINTNetworkGraph) {
           osintGraphInstance = new window.OSINTNetworkGraph('osintCanvas');
+        } else if (osintGraphInstance) {
+          setTimeout(() => osintGraphInstance.resize(), 100);
         }
       }
     }

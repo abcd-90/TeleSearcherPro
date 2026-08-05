@@ -31,11 +31,26 @@
 
     resize() {
       const parent = this.canvas.parentElement;
+      if (!parent) return;
+      const oldWidth = this.width || parent.clientWidth || 800;
+      const oldHeight = this.height || parent.clientHeight || 500;
       this.width = parent.clientWidth || 800;
       this.height = parent.clientHeight || 500;
-      this.canvas.width = this.width * (window.devicePixelRatio || 1);
-      this.canvas.height = this.height * (window.devicePixelRatio || 1);
-      this.ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      const dpr = window.devicePixelRatio || 1;
+      this.canvas.width = this.width * dpr;
+      this.canvas.height = this.height * dpr;
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.scale(dpr, dpr);
+
+      // Scale node positions relative to new bounds if already generated
+      if (this.nodes && this.nodes.length && oldWidth && oldHeight) {
+        const scaleX = this.width / oldWidth;
+        const scaleY = this.height / oldHeight;
+        this.nodes.forEach(node => {
+          node.x = Math.max(30, Math.min(this.width - 30, node.x * scaleX));
+          node.y = Math.max(30, Math.min(this.height - 30, node.y * scaleY));
+        });
+      }
     }
 
     generateMockNetwork() {
