@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TeleSearch Engine Search Frame</title>
-  <!-- Force external links to open in a new tab to avoid iframe blocking -->
-  <base target="_blank">
   <link rel="stylesheet" href="css/telesearch.css">
   <script src="js/security.js" defer></script>
   
@@ -44,6 +42,7 @@
       box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
       margin-bottom: 24px;
       transition: all var(--transition-normal);
+      position: relative;
     }
 
     .ts-search-input-group:focus-within {
@@ -52,11 +51,12 @@
     }
 
     .ts-search-icon {
-      color: var(--text-muted);
+      color: var(--primary-blue);
       font-size: 1.2rem;
       margin-right: 12px;
       display: flex;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .ts-main-input {
@@ -65,13 +65,39 @@
       border: none;
       outline: none;
       color: var(--text-primary);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-family: var(--font-sans);
       font-weight: 500;
+      min-width: 0;
     }
 
     .ts-main-input::placeholder {
       color: var(--text-muted);
+    }
+
+    .ts-clear-input-btn {
+      background: #F1F5F9;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: all var(--transition-fast);
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .ts-clear-input-btn:hover {
+      background: var(--accent-rose);
+      color: #ffffff;
+      border-color: var(--accent-rose);
     }
 
     .ts-category-dropdown {
@@ -85,6 +111,12 @@
       outline: none;
       cursor: pointer;
       margin-right: 10px;
+      transition: all var(--transition-fast);
+    }
+
+    .ts-category-dropdown:hover, .ts-category-dropdown:focus {
+      border-color: var(--border-highlight);
+      color: var(--primary-blue);
     }
 
     .ts-category-dropdown option {
@@ -106,6 +138,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      flex-shrink: 0;
     }
 
     .ts-search-btn-primary:hover {
@@ -114,21 +147,9 @@
       box-shadow: 0 8px 25px rgba(11, 25, 44, 0.3);
     }
 
-    /* Google CSE Search Component Styling Overrides */
-    .gcse-search, .gsc-control-cse, .gsc-control-wrapper-cse,
-    .gsc-results-wrapper-visible, .gsc-results-wrapper-overlay, .gsc-wrapper {
-      width: 100% !important;
-      max-width: 1000px !important;
-      margin: 0 auto !important;
-      background-color: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-    }
-
-    .gsc-search-box-tools, .gsc-search-box {
-      margin: 0 auto 24px auto !important;
-      max-width: 900px !important;
-      width: 100% !important;
+    /* Hide Native Google CSE Search Bar completely so only unified search bar is visible */
+    .gsc-search-box-tools, .gsc-search-box, form.gsc-search-box, table.gsc-search-box {
+      display: none !important;
     }
 
     /* Light Input Box for Google CSE */
@@ -521,42 +542,46 @@
       .ts-search-input-group {
         padding: 10px 12px;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
         border-radius: var(--radius-md);
       }
       .ts-search-icon {
         display: flex;
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
       .ts-main-input {
         font-size: 0.94rem;
-        flex: 1 1 calc(100% - 32px);
-        width: calc(100% - 32px);
-        min-height: 38px;
+        flex: 1 1 calc(100% - 75px);
+        min-height: 42px;
       }
       .ts-category-dropdown {
         font-size: 0.82rem;
         padding: 10px 12px;
         margin-right: 0;
-        flex: 1;
+        flex: 1 1 45%;
         min-height: 42px;
+        border-radius: var(--radius-sm);
       }
       .ts-search-btn-primary {
-        padding: 10px 18px;
+        padding: 10px 16px;
         font-size: 0.88rem;
-        flex: 1;
+        flex: 1 1 45%;
         justify-content: center;
         min-height: 42px;
+        border-radius: var(--radius-sm);
       }
       .category-tabs-bar {
         justify-content: flex-start;
         overflow-x: auto;
         flex-wrap: nowrap;
-        padding-bottom: 8px;
+        padding: 6px 8px;
+        background: #F8FAFC;
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
         -webkit-overflow-scrolling: touch;
         width: 100%;
         scrollbar-width: none;
-        gap: 8px;
+        gap: 6px;
       }
       .category-tabs-bar::-webkit-scrollbar {
         display: none;
@@ -572,6 +597,12 @@
         padding: 8px 14px;
         white-space: nowrap;
         min-height: 38px;
+        border-radius: var(--radius-sm);
+      }
+      .cat-tab.active {
+        background: var(--gradient-brand);
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
       }
       .filter-btn-pill {
         flex-shrink: 0;
@@ -579,6 +610,7 @@
         padding: 8px 14px;
         font-size: 0.82rem;
         min-height: 38px;
+        border-radius: var(--radius-sm);
       }
       .discovery-cards-grid {
         grid-template-columns: 1fr !important;
@@ -586,8 +618,9 @@
         width: 100% !important;
       }
       .disc-card {
-        padding: 16px !important;
+        padding: 18px 14px !important;
         width: 100% !important;
+        border-radius: var(--radius-md) !important;
       }
       .disc-card-head {
         padding-left: 24px;
@@ -605,7 +638,7 @@
       }
       .ts-card-action-btn, .ts-copy-btn, .ts-bookmark-btn {
         flex: 1;
-        min-width: 110px;
+        min-width: 105px;
         text-align: center;
         justify-content: center;
         padding: 10px 12px;
@@ -622,17 +655,20 @@
     @media (max-width: 480px) {
       .ts-search-input-group {
         padding: 8px 10px;
+        gap: 8px;
       }
       .ts-main-input {
         font-size: 0.88rem;
       }
       .ts-category-dropdown {
-        width: 100%;
-        flex: 1 1 100%;
+        flex: 1 1 48%;
+        font-size: 0.8rem;
+        padding: 8px 10px;
       }
       .ts-search-btn-primary {
-        width: 100%;
-        flex: 1 1 100%;
+        flex: 1 1 48%;
+        font-size: 0.84rem;
+        padding: 8px 10px;
       }
       .discovery-title-bar {
         flex-direction: column;
@@ -664,16 +700,19 @@
     <!-- Custom Unified Search Input Group -->
     <div class="ts-search-input-group">
       <span class="ts-search-icon">🔍</span>
-      <input type="text" id="tsInlineSearchInput" class="ts-main-input" placeholder="Search channels, groups, bots, files, or topics..." onkeyup="handleInlineSearchKey(event)">
+      <input type="text" id="tsInlineSearchInput" class="ts-main-input" placeholder="Search 10M+ channels, bots, .zip, .pdf files..." onkeyup="handleInlineSearchKey(event)" oninput="handleInputTextChange(this.value)">
+      <button id="tsClearBtn" class="ts-clear-input-btn" title="Clear Search" onclick="clearSearchInput()" style="display: none;" type="button">✕</button>
       <select id="tsCatSelect" class="ts-category-dropdown" onchange="handleCatSelectChange(this.value)">
-        <option value="all">All ▾</option>
-        <option value="channels">Channels</option>
-        <option value="groups">Groups</option>
-        <option value="bots">Bots</option>
-        <option value="teledrive">Files (.zip, .apk, .pdf)</option>
-        <option value="vault">Private Vault</option>
+        <option value="all">⚡ All Results</option>
+        <option value="channels">📢 Channels</option>
+        <option value="groups">👥 Groups</option>
+        <option value="bots">🤖 Bots</option>
+        <option value="teledrive">📦 Files (.zip, .pdf)</option>
+        <option value="vault">🔐 VIP Vault</option>
       </select>
-      <button class="ts-search-btn-primary" onclick="triggerInlineSearch()">Search</button>
+      <button class="ts-search-btn-primary" onclick="triggerInlineSearch()">
+        <span>Search</span>
+      </button>
     </div>
 
     <!-- Quick Topic Search Chips Bar -->
@@ -825,10 +864,50 @@
       if (grid) grid.scrollBy({ left: 300, behavior: 'smooth' });
     }
 
+    function handleInputTextChange(val) {
+      const clearBtn = document.getElementById('tsClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = val.trim().length > 0 ? 'inline-flex' : 'none';
+      }
+      if (!val || !val.trim()) {
+        restoreDiscoveryGrid();
+      } else {
+        updateDiscoveryGrid(val);
+      }
+    }
+
+    function clearSearchInput() {
+      const mainInput = document.getElementById('tsInlineSearchInput');
+      const cseInput = document.querySelector('input.gsc-input');
+      const clearBtn = document.getElementById('tsClearBtn');
+      
+      if (mainInput) mainInput.value = '';
+      if (cseInput) cseInput.value = '';
+      if (clearBtn) clearBtn.style.display = 'none';
+
+      restoreDiscoveryGrid();
+    }
+
+    function restoreDiscoveryGrid() {
+      const discoveryGrid = document.getElementById('discoveryGrid');
+      const resultsContainer = document.querySelector('.gsc-results-wrapper-visible');
+      const titleEl = document.querySelector('.discovery-title');
+      
+      if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+      }
+      if (discoveryGrid) {
+        discoveryGrid.style.display = 'block';
+        if (titleEl) titleEl.innerHTML = '🔥 Trending Hubs & Vaults';
+      }
+      sendHeight();
+    }
+
     function searchTopicQuery(query) {
       const mainInput = document.getElementById('tsInlineSearchInput');
       if (mainInput) {
         mainInput.value = query;
+        handleInputTextChange(query);
         triggerInlineSearch();
       }
     }
@@ -850,11 +929,14 @@
           }
         }
         updateDiscoveryGrid(val);
+        sendHeight();
+      } else {
+        restoreDiscoveryGrid();
       }
     }
 
     function handleInlineSearchKey(e) {
-      updateDiscoveryGrid(e.target.value);
+      handleInputTextChange(e.target.value);
       if (e.key === 'Enter') {
         triggerInlineSearch();
       }
