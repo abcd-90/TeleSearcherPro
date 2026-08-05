@@ -415,9 +415,7 @@
     .gs-snippet, .gs-snippet * { color: var(--text-secondary) !important; font-size: 0.96rem !important; line-height: 1.6 !important; margin-top: 8px !important; }
 
     .gs-visibleUrl, .gs-visibleUrl-long {
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 6px !important;
+      display: inline-block !important;
       color: var(--accent-emerald) !important;
       font-size: 0.84rem !important;
       font-weight: 600 !important;
@@ -426,6 +424,9 @@
       padding: 3px 10px !important;
       border-radius: var(--radius-xs) !important;
       margin-bottom: 8px !important;
+      word-break: break-all !important;
+      overflow-wrap: anywhere !important;
+      max-width: 100% !important;
     }
 
     /* Dual Action Bar inside Search Cards */
@@ -633,22 +634,47 @@
         display: none !important;
       }
       .card-actions-row {
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-wrap: nowrap;
+        gap: 6px;
       }
-      .ts-card-action-btn, .ts-copy-btn, .ts-bookmark-btn {
-        flex: 1;
-        min-width: 105px;
+      .ts-card-action-btn {
+        flex: 0 1 auto;
+        min-width: 0;
         text-align: center;
         justify-content: center;
-        padding: 10px 12px;
-        font-size: 0.82rem;
-        min-height: 40px;
+        padding: 8px 12px;
+        font-size: 0.78rem;
+        min-height: 38px;
+        gap: 5px;
+        white-space: nowrap;
+      }
+      .ts-copy-btn, .ts-bookmark-btn {
+        flex: 0 1 auto;
+        min-width: 0;
+        text-align: center;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.78rem;
+        min-height: 38px;
+        white-space: nowrap;
       }
       .gsc-webResult.gsc-result, .gsc-result {
-        padding: 16px 14px !important;
+        padding: 16px 12px !important;
         word-break: break-word;
         overflow-wrap: anywhere;
+      }
+      .gs-title, .gs-title * {
+        font-size: 1.05rem !important;
+        line-height: 1.35 !important;
+      }
+      .gs-snippet, .gs-snippet * {
+        font-size: 0.88rem !important;
+      }
+      .gs-visibleUrl, .gs-visibleUrl-long {
+        font-size: 0.76rem !important;
+        padding: 2px 8px !important;
+        word-break: break-all !important;
+        overflow-wrap: anywhere !important;
       }
     }
 
